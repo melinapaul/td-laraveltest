@@ -76,4 +76,46 @@ class PropertiesController extends Controller
 
 		return redirect('/properties/'.$property->id);
     }
+
+    public function storecsv(Request $request)
+    {
+        $file=Input::file('csv_file');
+        $client_id=Input::get('client_id');
+        $csv = Reader::createFromString($file->openFile()->fread($file->getSize()))->setHeaderOffset(0);
+
+        $header = $csv->getHeader();
+
+        if(count($header) !=9 || $header[0] != 'address' || $header[1] != 'city' || $header[2] != 'state' || $header[3] != 'zip' || $header[4] != 'property_name' || $header[5] != 'first_name' || $header[6] != 'last_name' || $header[7] != 'birth_date' || $header[8] != 'annual_income' ){
+            $csv_error = "First line must be address,city,state,zip,property_name,first_name,last_name,birth_date,annual_income";
+            return redirect('/properties/create')->with('csv_error', $csv_error);
+        }
+        $records = (new Statement())->process($csv);
+        foreach ($records->getRecords() as $record) {
+            $property = Property::where([
+                            ['property_name', '=', $record['property_name']],
+                            ['address', '=', $record['address']],
+                            ['city', '=', $record['city']],
+                            ['state', '=', $record['state']],
+                            ['zip', '=', $record['zip']]
+                        ])->first();
+            if(!$property) {
+                $property = new Property;
+                $property->property_name = $record['property_name'];
+                $property->address = $record['address'];
+                $property->city = $record['city'];
+                $property->state = $record['state'];
+                $property->zip = $record['zip'];
+                $property->client_id = $client_id;
+                $property->save();
+            }
+            Tenant::create([
+                'first_name' => $record['first_name'],
+                'last_name' => $record['last_name'],
+                'birth_date' => $record['birth_date'],
+                'annual_income' => $record['annual_income'],
+                'property_id' => $property->id         
+            ]);
+        }
+        return redirect('/properties');
+    }
 }

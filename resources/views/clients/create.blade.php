@@ -29,7 +29,13 @@
 				</form>
 				<br>
 				<hr>
-				<h2>Or Upload CSV</h2>
+				
+				<br>
+				<br>
+		</div>
+		<div class="col-lg-6">
+			<h2>Or Upload CSV</h2>
+				<small>Header should be 'organization_name,phone_number,contact_name,contact_email'</small>
 				<form method='POST' action='/clients/csv' enctype="multipart/form-data">
 				  	{{ csrf_field() }}
 				  <div class="form-group">
@@ -56,8 +62,6 @@
 					<div class="alert alert-danger">{{ $csv_error }}</div>
 				</div>
 				@endif
-				<br>
-				<br>
 		</div>
 	</div>	
  

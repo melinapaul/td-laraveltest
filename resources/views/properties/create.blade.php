@@ -47,8 +47,18 @@
 		</div>
 		<div class="col-lg-6">
 			<h2>Or Upload CSV</h2>
-				<form method='POST' action='/clients/csv' enctype="multipart/form-data">
+			<small>Header should be 'address,city,state,zip,property_name,first_name,last_name,birth_date,annual_income'</small>
+				<form method='POST' action='/properties/csv' enctype="multipart/form-data">
 				  	{{ csrf_field() }}
+				  <div class="form-group">
+				    <label>Client</label>
+				    <select class="form-control" id="client" name="client_id">
+				    	@foreach ($clients as $client)
+				      		<option value="{{ $client->id }}">{{ $client->organization_name }}</option>
+				      	@endforeach
+
+				    </select>
+				  </div>
 				  <div class="form-group">
 				    <label>Select CSV</label>
 				    <input type="file" class="form-control" name="csv_file" id="csv_file" accept=".csv"> 

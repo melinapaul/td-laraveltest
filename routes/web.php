@@ -22,3 +22,4 @@ Route::post('/properties', 'PropertiesController@store');
 Route::get('/properties/{property}', 'PropertiesController@show');
 Route::get('/properties/{property}/tenant/create', 'PropertiesController@createTenant');
 Route::post('/properties/{property}/tenant', 'PropertiesController@storeTenant');
+Route::post('/properties/csv', 'PropertiesController@storecsv');

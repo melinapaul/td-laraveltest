@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    PHP Take Home Test
+                    Laravel Take Home Test
                 </div>
 
                 <div class="links">
