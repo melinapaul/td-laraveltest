@@ -79,13 +79,12 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    PHP Test
+                    PHP Take Home Test
                 </div>
 
                 <div class="links">
                     <a href="/clients">Clients</a>
-                    <a href="https://laracasts.com">Properties</a>
-            
+                    <a href="/properties">Properties</a>
                 </div>
             </div>
         </div>

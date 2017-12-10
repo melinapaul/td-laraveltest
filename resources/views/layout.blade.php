@@ -39,7 +39,7 @@
                 <a class="nav-link" href="/clients">Clients</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="#">Properties</a>
+                <a class="nav-link " href="/properties">Properties</a>
               </li>
               
             </ul>
