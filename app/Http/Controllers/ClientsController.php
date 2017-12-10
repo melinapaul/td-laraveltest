@@ -20,7 +20,8 @@ class ClientsController extends Controller
 
     public function create()
     {
-    	return view('clients.create');
+        $csv_error = session('csv_error', null);
+    	return view('clients.create', compact('csv_error'));
     }
 
     public function store(Request $request)
@@ -50,7 +51,8 @@ class ClientsController extends Controller
 		$header = $csv->getHeader();
 		if(count($header) !=4 || $header[0] != 'organization_name' || $header[1] != 'phone_number' || $header[2] != 'contact_name' || $header[3] != 'contact_email' ){
 			$csv_error = "First line must be organization_name,phone_number,contact_name,contact_email";
-			return redirect('/clients/create')->with('csv_error', $csv_error);
+            session()->flash('csv_error', $csv_error);
+			return redirect('/clients/create');
 		}
 		$records = (new Statement())->process($csv);
 		foreach ($records->getRecords() as $record) {

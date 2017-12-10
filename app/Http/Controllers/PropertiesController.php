@@ -22,7 +22,8 @@ class PropertiesController extends Controller
     public function create()
     {
     	$clients = Client::all();
-    	return view('properties.create', compact('clients'));
+        $csv_error = session('csv_error', null);
+    	return view('properties.create', compact(['clients','csv_error']));
     }
 
     public function store()
@@ -87,7 +88,8 @@ class PropertiesController extends Controller
 
         if(count($header) !=9 || $header[0] != 'address' || $header[1] != 'city' || $header[2] != 'state' || $header[3] != 'zip' || $header[4] != 'property_name' || $header[5] != 'first_name' || $header[6] != 'last_name' || $header[7] != 'birth_date' || $header[8] != 'annual_income' ){
             $csv_error = "First line must be address,city,state,zip,property_name,first_name,last_name,birth_date,annual_income";
-            return redirect('/properties/create')->with('csv_error', $csv_error);
+            session()->flash('csv_error', $csv_error);
+            return redirect('/properties/create');
         }
         $records = (new Statement())->process($csv);
         foreach ($records->getRecords() as $record) {

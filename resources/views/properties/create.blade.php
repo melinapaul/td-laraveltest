@@ -64,6 +64,7 @@
 				    <input type="file" class="form-control" name="csv_file" id="csv_file" accept=".csv"> 
 				  </div>
 				  <button type="submit" class="btn btn-primary">Upload</button>
+				  <a href="/properties.csv" class="float-right">Download Sample CSV</a>
 				</form>
 				<br>
 				<br>
@@ -78,7 +79,7 @@
 						</div>
 					</div>
 				@endif
-				@if(isset($csv_error))
+				@if($csv_error)
 				<div class="form-group">
 					<div class="alert alert-danger">{{ $csv_error }}</div>
 				</div>
