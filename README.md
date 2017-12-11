@@ -8,7 +8,7 @@ There is no need to run any SQL commands to create tables as everything is done 
 
 `CREATE DATABASE db_name`
 
-Update connection details in the `.env` file and run the following commands in the project directory to install dependencies and create necessary tables:
+Update connection details and other configuration in the `.env` file and run the following commands in the project directory to install dependencies and create necessary tables:
 
 `composer install`
 
